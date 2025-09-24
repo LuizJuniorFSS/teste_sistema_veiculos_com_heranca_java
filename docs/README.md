@@ -174,6 +174,90 @@ O projeto foi configurado para ser compatível com **Java 8**, garantindo execu�
 - Projeto segue boas práticas de POO
 - Código bem documentado e organizado
 
----
+## 🤔 Análise Técnica: Perguntas e Respostas
 
-**Desenvolvido como exemplo prático de Programação Orientada a Objetos em Java** 🚗🏍️
+### **1. 🎯 Quais são as vantagens de utilizar herança no código desenvolvido?**
+
+**✅ Principais Vantagens:**
+
+- **🔄 Reutilização de Código:** 
+  - As classes `Carro` e `Moto` herdam automaticamente os atributos (`marca`, `modelo`, `ano`) e métodos da classe `Veiculo`
+  - Evita duplicação de código - não precisamos reescrever os mesmos atributos em cada subclasse
+
+- **📈 Facilidade de Manutenção:**
+  - Mudanças na classe base (`Veiculo`) são automaticamente refletidas nas subclasses
+  - Centralização da lógica comum em um só lugar
+
+- **🎭 Polimorfismo:**
+  - Podemos tratar objetos `Carro` e `Moto` como `Veiculo` genérico
+  - Demonstrado no array `Veiculo[] veiculos = {carro1, moto1}`
+
+- **🏗️ Estrutura Hierárquica:**
+  - Organização lógica do código seguindo relacionamentos "é um" (Carro **é um** Veiculo)
+  - Facilita compreensão e extensibilidade do sistema
+
+- **🔧 Extensibilidade:**
+  - Fácil adição de novos tipos de veículos (ex: `Caminhao`, `Bicicleta`) sem modificar código existente
+
+### **2. ⚠️ O que acontece se removermos o método sobrescrito exibirDetalhes() das subclasses?**
+
+**🔍 Demonstração Prática:**
+
+**❌ Sem sobrescrita (método da classe pai):**
+```
+=== Detalhes do Veículo ===
+Marca: Toyota
+Modelo: Corolla
+Ano: 2023
+```
+
+**✅ Com sobrescrita (método específico):**
+```
+=== Detalhes do Carro ===
+Marca: Toyota
+Modelo: Corolla
+Ano: 2023
+Número de Portas: 4
+```
+
+**📋 Consequências:**
+
+- **🔄 Herda o método da classe pai:** A subclasse usa automaticamente o método `exibirDetalhes()` da classe `Veiculo`
+- **❌ Perde informações específicas:** Não exibe atributos únicos da subclasse (ex: `numeroPortas`)
+- **⚡ Funciona, mas é limitado:** O programa não quebra, mas perde funcionalidade específica
+- **🎭 Polimorfismo ainda funciona:** Mas com comportamento genérico
+
+### **3. 🛠️ Quais foram os desafios ao implementar as subclasses?**
+
+**🎯 Principais Desafios Identificados:**
+
+**1. 🏗️ Design da Herança:**
+- **Desafio:** Decidir quais atributos/métodos devem ser `protected` vs `private`
+- **Solução:** Usar `protected` para permitir acesso direto nas subclasses
+
+**2. 🔄 Sobrescrita Adequada:**
+- **Desafio:** Garantir que o método sobrescrito mantenha a funcionalidade base + adicione especificidades
+- **Solução:** Usar `@Override` para garantir sobrescrita correta e incluir todos os atributos relevantes
+
+**3. 🏗️ Construtores:**
+- **Desafio:** Chamar corretamente o construtor da classe pai
+- **Solução:** Usar `super(marca, modelo, ano)` como primeira linha dos construtores das subclasses
+
+**4. 📊 Balanceamento de Responsabilidades:**
+- **Desafio:** Decidir o que fica na classe pai vs subclasses
+- **Solução:** Manter funcionalidades comuns na classe pai e específicas nas subclasses
+
+**5. 🎭 Polimorfismo Efetivo:**
+- **Desafio:** Garantir que o polimorfismo funcione corretamente
+- **Solução:** Implementar sobrescrita consistente em todas as subclasses
+
+**6. 🔧 Compatibilidade:**
+- **Desafio:** Manter compatibilidade com Java 8
+- **Solução:** Usar flags `-target 8 -source 8` na compilação
+
+**💡 Lições Aprendidas:**
+- A herança bem implementada torna o código mais limpo e manutenível
+- A sobrescrita de métodos é essencial para aproveitar totalmente o polimorfismo
+- O design inicial da classe pai é crucial para o sucesso das subclasses
+
+---
